@@ -17,10 +17,10 @@ Using the OCP Assisted Installer with API to create a Static IP based ISO.
 **STEP 4: Gather the Cluster ID from the URL:**
   ![image](https://user-images.githubusercontent.com/48925593/134409953-25f6086c-a016-4de4-94cf-10d79e8d5d76.png)
 
-**    a. The url speciffied is: **
+****    a. The url speciffied is: ****
 https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4bb2-adfc-7846dcc7f29f
 
-**    b. Assign this into the variable CLUSTER_ID:**
+****    b. Assign this into the variable CLUSTER_ID:****
 
   ```bash
   export CLUSTER_ID="975ec989-3264-4bb2-adfc-7846dcc7f29f"
@@ -29,15 +29,15 @@ https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4
 **STEP 5: LOAD TOKEN from the OpenShift Cluster Manager site: **
   https://console.redhat.com/openshift/token
 
-**  a. Click on Load token.**
+****  a. Click on Load token.****
 
     ![image](https://user-images.githubusercontent.com/48925593/134413755-7abed6eb-4b41-4263-ad1d-8c455a9881b0.png)
 
-**  b. Click on the Copy to Clipboard icon to the right of the token.**
+****  b. Click on the Copy to Clipboard icon to the right of the token.****
 
     ![image](https://user-images.githubusercontent.com/48925593/134415323-59db0811-bea2-42f1-a859-2c2b1c4ffa2a.png)
 
-**  c. Assign this into the variable OFFLINE_ACCESS_TOKEN:**
+****  c. Assign this into the variable OFFLINE_ACCESS_TOKEN:****
 
    ```bash
    export OFFLINE_ACCESS_TOKEN="<PASTE_TOKEN_HERE>"
