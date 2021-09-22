@@ -2,9 +2,11 @@
 Using the OCP Assisted Installer with API to create a Static IP based ISO
 
 
-**STEP 1: Using the Assisted Installer Web UI, click on Create Cluster:**
+**STEP 1: Open the Assisted Installer Web UI:**
 https://console.redhat.com/openshift/assisted-installer/clusters/
 
+
+**STEP 2: Cick on Create Cluster:**
 ![image](https://user-images.githubusercontent.com/48925593/134395134-1665ad54-7c20-4251-a436-9efedb0fe764.png)
 
 
