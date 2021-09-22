@@ -113,6 +113,7 @@ https://console.redhat.com/openshift/install/pull-secret
    ```
       
 **SAMPLE OUTPUT:**
+  ```bash
       apiVersion: v1
       baseDomain: redhat.local
       networking:
@@ -139,6 +140,7 @@ https://console.redhat.com/openshift/install/pull-secret
       fips: false
       pullSecret: 'Your-Pull-Secret'
       sshKey: 'Your-SSH_KEY'
+  ```
       
 
 **STEP 1. Open the Assisted Installer Web UI:**
