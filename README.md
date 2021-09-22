@@ -177,6 +177,9 @@ EOF
    
 **STEP 9. GENERATE THE DISCOVERY ISO FILE USING THE NMSTATE FILES:**
 
+  Gather the MAC addresses for all of your VMs/Baremetal nodes. 
+  Edit the MAC addresses below for each of the nodes to match your environment.
+  
 ```bash
 DATA=$(mktemp)
 
