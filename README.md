@@ -2,30 +2,15 @@
 Using the OCP Assisted Installer with API to create a Static IP based ISO.
 
 
-**STEP 1. Open the Assisted Installer Web UI:**
-  https://console.redhat.com/openshift/assisted-installer/clusters/
+**STEP 1. Download the Pull Secret from the URL:**
+https://console.redhat.com/openshift/install/pull-secret
+
+**a. Click on Download pull secret, and save as filename pull-secret.txt in your current folder.**
+![image](https://user-images.githubusercontent.com/48925593/134422760-dc8b8010-56d4-4061-89c1-6e78a73a52db.png)
 
 
-**STEP 2. Cick on Create Cluster:**
-  ![image](https://user-images.githubusercontent.com/48925593/134395134-1665ad54-7c20-4251-a436-9efedb0fe764.png)
 
-
-**STEP 3. Specify the Cluster name, Base domain, and OpenShift version, and click Next:**
-  ![image](https://user-images.githubusercontent.com/48925593/134395722-86f875ad-016a-4d2c-92d0-222dc1a2b091.png)
-
-
-**STEP 4. Gather the Cluster ID from the URL:**
-  ![image](https://user-images.githubusercontent.com/48925593/134409953-25f6086c-a016-4de4-94cf-10d79e8d5d76.png)
-
-**a. The url speciffied is:** 
-https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4bb2-adfc-7846dcc7f29f
-
-**b. Assign this into the variable CLUSTER_ID:**
-  ```bash
-  export CLUSTER_ID="975ec989-3264-4bb2-adfc-7846dcc7f29f"
-  ```
-
-**STEP 5. LOAD TOKEN from the OpenShift Cluster Manager site:**
+**STEP 2. LOAD TOKEN from the OpenShift Cluster Manager site:**
   https://console.redhat.com/openshift/token
 
 **a. Click on Load token.**
@@ -52,24 +37,47 @@ https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4
    jq -r .access_token)
    ```
 
-**STEP 6. ASSIGN OTHER CLUSTER PROPERTIES:**
+
+**STEP 3. ASSIGN OTHER CLUSTER PROPERTIES:**
 
 **a. Assign the following parameters as variables. Modfy these for your environment.**
 
    ```bash
    export ASSISTED_SERVICE_API="api.openshift.com"
-   export CLUSTER_VERSION="4.6"                                   # OpenShift version    
+   export CLUSTER_VERSION="4.6"                                                   # OpenShift version    
    export CLUSTER_IMAGE="quay.io/openshift-release-dev/ocp-release:4.6.16-x86_64"
-   export CLUSTER_NAME="waiops"                                   # OpenShift cluster name    
-   export CLUSTER_DOMAIN="redhat.local"                           # Domain name where my cluster will be deployed 
-   export CLUSTER_NET_TYPE="OpenShiftSDN"                         # Set the Network type to deploy with OpenShift
+   export CLUSTER_NAME="waiops"                                                   # OpenShift cluster name    
+   export CLUSTER_DOMAIN="redhat.local"                                           # Domain name where the cluster will be deployed 
+   export CLUSTER_NET_TYPE="OpenShiftSDN"                                         # Set the Network type to deploy with OpenShift
+   export PULL_SECRET=$(cat ~/pull-secret.txt | jq -R .)                          # Loading the pull-secret into variable
+   export CLUSTER_SSHKEY=$(cat ~/.ssh/id_rsa.pub)                                 # Loading the public key into variable
    ```
    
-**STEP 7. REFRESH OFFLINE TOKEN:**
+**STEP 4. GENERATE DEPLOYMENT.JSON FILE:**
+
+   ```bash
+   cat << EOF > ~/deployment.json
+   {
+   "kind": "Cluster",
+   "name": "$CLUSTER_NAME",
+   "openshift_version": "$CLUSTER_VERSION",
+   "ocp_release_image": "$CLUSTER_IMAGE",
+   "base_dns_domain": "$CLUSTER_DOMAIN",
+   "network_type": "$CLUSTER_NET_TYPE",
+   "user_managed_networking": false,
+   "vip_dhcp_allocation": false,
+   "ssh_public_key": "$CLUSTER_SSHKEY",
+   "pull_secret": $PULL_SECRET
+   }
+   EOF
+
+
+**STEP 5. REFRESH OFFLINE TOKEN:**
 (This may need to be performed periodically)
 
-      ```bash
-      export TOKEN=$(curl \
+
+   ```bash
+   export TOKEN=$(curl \
       --silent \
       --data-urlencode "grant_type=refresh_token" \
       --data-urlencode "client_id=cloud-services" \
@@ -78,7 +86,9 @@ https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4
       jq -r .access_token)
       ```
 
-**STEP 8. RETRIEVE CLUSTER CONFIG with API:**
+
+
+**STEP 5. RETRIEVE CLUSTER CONFIG with API:**
 
       ```bash
       curl -s -X GET --header "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/install-config"|jq -r
@@ -112,3 +122,21 @@ https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4
       pullSecret: 'Your-Pull-Secret'
       sshKey: 'Your-SSH_KEY'
       
+
+**STEP 1. Open the Assisted Installer Web UI:**
+  https://console.redhat.com/openshift/assisted-installer/clusters/
+
+**STEP 2. Cick on Create Cluster:**
+
+**STEP 3. Specify the Cluster name, Base domain, and OpenShift version, and click Next:**
+
+**STEP 4. Gather the Cluster ID from the URL:**
+  ![image](https://user-images.githubusercontent.com/48925593/134409953-25f6086c-a016-4de4-94cf-10d79e8d5d76.png)
+
+**a. The url speciffied is:** 
+https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4bb2-adfc-7846dcc7f29f
+
+**b. Assign this into the variable CLUSTER_ID:**
+  ```bash
+  export CLUSTER_ID="975ec989-3264-4bb2-adfc-7846dcc7f29f"
+  ```
