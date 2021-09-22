@@ -85,18 +85,18 @@ https://console.redhat.com/openshift/install/pull-secret
       --data-urlencode "refresh_token=${OFFLINE_ACCESS_TOKEN}" \
       https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token | \
       jq -r .access_token)
-      ```
+   ```
 
 **STEP 6. CREATE CLUSTER USING DEPLOYMENT.JSON FILE:**
 
-**a.**
+**a. Create cluster.**
    ```bash
    export CLUSTER_ID=$( curl -s -X POST "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters" \
   -d @./deployment.json \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   | jq '.id' )
-  ```
+   ```
   
 **b. Assign the variable CLUSTER_ID:**
   ```bash
@@ -104,13 +104,14 @@ https://console.redhat.com/openshift/install/pull-secret
   
   echo $CLUSTER_ID
   e85fc7d5-f274-4359-acc5-48044fc67132
-  ```
+   ```
 
 **STEP 7. RETRIEVE CLUSTER CONFIG with API:**
 
-      ```bash
-      curl -s -X GET --header "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/install-config"|jq -r
-      ```
+  ```bash
+      curl -s -X GET --header "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" \
+      "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/install-config"|jq -r
+   ```
       
       SAMPLE OUTPUT:
       apiVersion: v1
