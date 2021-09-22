@@ -20,5 +20,5 @@ https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4
 export CLUSTER_ID="975ec989-3264-4bb2-adfc-7846dcc7f29f"
 
 
-**STEP 4: **
+**STEP 4: LOAD TOKEN from **
 
