@@ -142,7 +142,7 @@ https://console.redhat.com/openshift/install/pull-secret
       sshKey: 'Your-SSH_KEY'
   ```
       
-**STEP 8. GENERATE THE NMSTATE YAML FILES:**
+**STEP 8. CREATE THE NMSTATE YAML FILES:**
 
     Create a yaml file for each node in the cluster (master-0, master-1, master-2, worker-0, worker-1, worker-2).
     The master-0 file is shown below. 
