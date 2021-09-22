@@ -142,7 +142,38 @@ https://console.redhat.com/openshift/install/pull-secret
       sshKey: 'Your-SSH_KEY'
   ```
       
+**STEP 8. GENERATE THE NMSTATE YAML FILES:**
 
+    Create a yaml file for each node in the cluster (master-0, master-1, master-2, worker-0, worker-1, worker-2).
+    The master-0 file is shown below. 
+    Replicate this for the other nodes, changing the IP address to match your environment.
+    
+  ```bash
+cat << EOF > ~/master-0.yaml 
+dns-resolver:
+  config:
+    server:
+    - 192.168.1.210
+interfaces:
+- ipv4:
+    address:
+    - ip: 192.168.2.100
+      prefix-length: 24
+    dhcp: false
+    enabled: true
+  name: ens192
+  state: up
+  type: ethernet
+routes:
+  config:
+  - destination: 0.0.0.0/0
+    next-hop-address: 192.168.2.1
+    next-hop-interface: ens192
+    table-id: 254
+EOF
+   ```
+      
+      
 **STEP 1. Open the Assisted Installer Web UI:**
   https://console.redhat.com/openshift/assisted-installer/clusters/
 
