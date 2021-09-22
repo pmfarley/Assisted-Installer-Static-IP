@@ -146,7 +146,9 @@ https://console.redhat.com/openshift/install/pull-secret
 
     Create a yaml file for each node in the cluster (master-0, master-1, master-2, worker-0, worker-1, worker-2).
     The master-0 file is shown below. 
-    Replicate this for the other nodes, changing the IP address to match your environment.
+    Replicate this for the other nodes, changing the IP addresses to match your environment.
+    
+    NOTE: vSphere virtual ethernet adapter device name shows up as "ens192".
     
   ```bash
 cat << EOF > ~/master-0.yaml 
@@ -172,22 +174,83 @@ routes:
     table-id: 254
 EOF
    ```
-      
-      
-**STEP 1. Open the Assisted Installer Web UI:**
+   
+**STEP 9. GENERATE THE DISCOVERY ISO FILE USING THE NMSTATE FILES:**
+
+```bash
+DATA=$(mktemp)
+
+jq -n --arg SSH_KEY "$CLUSTER_SSHKEY" \
+--arg NMSTATE_YAML1 "$(cat ~/master-0.yaml)" --arg NMSTATE_YAML2 "$(cat ~/master-1.yaml)" \
+--arg NMSTATE_YAML3 "$(cat ~/master-2.yaml)" --arg NMSTATE_YAML4 "$(cat ~/worker-0.yaml)" \
+--arg NMSTATE_YAML5 "$(cat ~/worker-1.yaml)" --arg NMSTATE_YAML6 "$(cat ~/worker-2.yaml)" \
+'{
+  "ssh_public_key": $SSH_KEY,
+  "image_type": "full-iso",
+  "static_network_config": [
+    {
+      "network_yaml": $NMSTATE_YAML1,
+      "mac_interface_map": [{"mac_address": "00:50:56:b9:02:7b", "logical_nic_name": "ens192"}]
+    },
+    {
+      "network_yaml": $NMSTATE_YAML2,
+      "mac_interface_map": [{"mac_address": "00:50:56:b9:ff:58", "logical_nic_name": "ens192"}]
+    },
+    {
+      "network_yaml": $NMSTATE_YAML3,
+      "mac_interface_map": [{"mac_address": "00:50:56:b9:72:7d", "logical_nic_name": "ens192"}]
+     },
+    {
+      "network_yaml": $NMSTATE_YAML4,
+      "mac_interface_map": [{"mac_address": "00:50:56:b9:d8:09", "logical_nic_name": "ens192"}]
+    },
+    {
+      "network_yaml": $NMSTATE_YAML5,
+      "mac_interface_map": [{"mac_address": "00:50:56:b9:1e:92", "logical_nic_name": "ens192"}]
+    },
+    {
+      "network_yaml": $NMSTATE_YAML6,
+      "mac_interface_map": [{"mac_address": "00:50:56:b9:be:33", "logical_nic_name": "ens192"}]
+     }
+  ]
+}' > $DATA
+
+
+curl -X POST "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/downloads/image" \
+  -H "Content-Type: application/json"  -H "Authorization: Bearer $TOKEN" -d @$DATA
+```
+
+**STEP 10. DOWNLOAD THE DISCOVERY ISO FILE:**
+   ```bash
+   curl -L "http://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/downloads/image" \
+   -o ~/discovery-image-$CLUSTER_NAME-master0.iso  -H "Authorization: Bearer $TOKEN"
+  ```
+
+**STEP 11. RETRIEVE THE AWS S3 DOWNLOAD URL (OPTIONAL):**
+   ```bash
+   curl -s -X GET "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID" \
+   -H "Authorization: Bearer $TOKEN"|jq .image_info
+   ```
+   
+SAMPLE OUTPUT:
+   ```bash
+     "download_url": "https://s3.us-east-1.amazonaws.com/assisted-installer/discovery-image-....", 
+     "expires_at": "2021-08-19T07:11:46.229Z"
+   ```
+**STEP 12. BOOT EACH OF YOUR VM/BAREMETAL WITH THE DISCOVERY ISO IMAGE.**
+
+**STEP 13. OPEN THE ASSISTED INSTALLER WEB UI:**
   https://console.redhat.com/openshift/assisted-installer/clusters/
 
-**STEP 2. Cick on Create Cluster:**
+a. You will see a list of clusters, click on the name of the cluster. 
+![image](https://user-images.githubusercontent.com/48925593/134430565-5640e3ca-7111-49b2-90f1-8813f65c5e5b.png)
 
-**STEP 3. Specify the Cluster name, Base domain, and OpenShift version, and click Next:**
 
-**STEP 4. Gather the Cluster ID from the URL:**
-  ![image](https://user-images.githubusercontent.com/48925593/134409953-25f6086c-a016-4de4-94cf-10d79e8d5d76.png)
+**STEP 14. In Host discovery Tab, once all of your nodes appear in the list, click on Next.**
 
-**a. The url speciffied is:** 
-https://console.redhat.com/openshift/assisted-installer/clusters/975ec989-3264-4bb2-adfc-7846dcc7f29f
+**STEP 15. In the Networking tab, enter the settings for the Cluster network CIDR, Host prefix, and Service network CIDR. **
 
-**b. Assign this into the variable CLUSTER_ID:**
-  ```bash
-  export CLUSTER_ID="975ec989-3264-4bb2-adfc-7846dcc7f29f"
-  ```
+From this tab, also enter the static IP addresses for the API VIP and the Ingress VIP. 
+
+**STEP 16. Proceed to click on Next, and then on Install the cluster.**
+
