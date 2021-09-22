@@ -2,15 +2,14 @@
 Using the OCP Assisted Installer with API to create a Static IP based ISO.
 
 
-**STEP 1. Download the Pull Secret from the URL:**
+**STEP 1. DOWNLOAD THE PULL SECRET FROM THE URL:**
 https://console.redhat.com/openshift/install/pull-secret
 
 **a. Click on Download pull secret, and save as filename pull-secret.txt in your current folder.**
 ![image](https://user-images.githubusercontent.com/48925593/134422760-dc8b8010-56d4-4061-89c1-6e78a73a52db.png)
 
 
-
-**STEP 2. LOAD TOKEN from the OpenShift Cluster Manager site:**
+**STEP 2. LOAD TOKEN FROM THE OPENSHIFT CLUSTER MANAGER SITE:**
   https://console.redhat.com/openshift/token
 
 **a. Click on Load token.**
@@ -38,7 +37,7 @@ https://console.redhat.com/openshift/install/pull-secret
    ```
 
 
-**STEP 3. ASSIGN OTHER CLUSTER PROPERTIES:**
+**STEP 3. ASSIGN THE OTHER CLUSTER PROPERTIES:**
 
 **a. Assign the following parameters as variables. Modfy these for your environment.**
 
@@ -53,7 +52,7 @@ https://console.redhat.com/openshift/install/pull-secret
    export CLUSTER_SSHKEY=$(cat ~/.ssh/id_rsa.pub)                                 # Loading the public key into variable
    ```
    
-**STEP 4. GENERATE DEPLOYMENT.JSON FILE:**
+**STEP 4. GENERATE THE DEPLOYMENT.JSON FILE:**
 
    ```bash
    cat << EOF > ~/deployment.json
@@ -73,7 +72,7 @@ https://console.redhat.com/openshift/install/pull-secret
    ```
 
 
-**STEP 5. REFRESH OFFLINE TOKEN:**
+**STEP 5. REFRESH THE OFFLINE TOKEN:**
 (This may need to be performed periodically)
 
 
@@ -87,7 +86,7 @@ https://console.redhat.com/openshift/install/pull-secret
       jq -r .access_token)
    ```
 
-**STEP 6. CREATE CLUSTER USING DEPLOYMENT.JSON FILE:**
+**STEP 6. CREATE THE CLUSTER USING THE DEPLOYMENT.JSON FILE:**
 
 **a. Create cluster.**
    ```bash
@@ -106,14 +105,14 @@ https://console.redhat.com/openshift/install/pull-secret
   e85fc7d5-f274-4359-acc5-48044fc67132
    ```
 
-**STEP 7. RETRIEVE CLUSTER CONFIG with API:**
+**STEP 7. VERIFY/RETRIEVE THE CLUSTER CONFIG with API:**
 
   ```bash
       curl -s -X GET --header "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" \
       "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/install-config"|jq -r
    ```
       
-      SAMPLE OUTPUT:
+**SAMPLE OUTPUT:**
       apiVersion: v1
       baseDomain: redhat.local
       networking:
