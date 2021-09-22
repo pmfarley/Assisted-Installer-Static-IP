@@ -112,7 +112,7 @@ https://console.redhat.com/openshift/install/pull-secret
       "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/install-config"|jq -r
    ```
       
-**SAMPLE OUTPUT:**
+SAMPLE OUTPUT:
   ```bash
       apiVersion: v1
       baseDomain: redhat.local
