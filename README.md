@@ -102,7 +102,10 @@ https://console.redhat.com/openshift/install/pull-secret
   export CLUSTER_ID=$( sed -e 's/^"//' -e 's/"$//' <<<"$CLUSTER_ID")
   
   echo $CLUSTER_ID
-  e85fc7d5-f274-4359-acc5-48044fc67132
+   ```
+  SAMPLE OUTPUT:
+  ```bash
+  4bb998f1-b99a-4319-b5e1-b4a2fb4db9a3
    ```
 
 **STEP 7. VERIFY/RETRIEVE THE CLUSTER CONFIG with API:**
