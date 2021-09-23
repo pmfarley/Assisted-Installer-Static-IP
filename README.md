@@ -4,7 +4,7 @@ Using the OpenShift Assisted Installer with API to create a Static IP based ISO.
   ASSISTED INSTALLER WEB UI: https://console.redhat.com/openshift/assisted-installer/clusters/
 
 
-## **STEP 1.DOWNLOAD THE PULL SECRET FROM THE URL:**
+## **STEP 1. DOWNLOAD THE PULL SECRET FROM THE URL:**
 https://console.redhat.com/openshift/install/pull-secret
 
 **a. Click on Download pull secret, and save as filename pull-secret.txt in your current folder.**
