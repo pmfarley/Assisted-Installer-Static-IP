@@ -254,13 +254,13 @@ a. You will see a list of clusters, click on the name of the cluster.
 
 **STEP 14. HOST DISCOVERY:**
 
-  a. In Host discovery Tab, once all of your nodes appear in the list, click on _Next_.
+  a. From the _Host discovery_ menu, once all of your nodes appear in the list, click on _Next_.
 ![image](https://user-images.githubusercontent.com/48925593/134447800-e2281bc9-c34a-4690-a87f-0cf5419a4072.png)
 
 
 **STEP 15. CONFIGURE NETWORKING:**
 
-a. In the Networking tab, select the discovered network subnet, and enter the static IP addresses for the API VIP and Ingress VIP.
+a. From the _Networking_ menu, select the discovered network subnet, and enter the static IP addresses for the API VIP and Ingress VIP.
 
 b. To edit the Cluster network CIDR, Host prefix, and Service network CIDR, first select _use advanced networking_.
 
