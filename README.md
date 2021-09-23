@@ -273,3 +273,7 @@ c. To proceed, click on _Next_.
   a. Review the cconfiguration, and select _Install Cluster_.
 ![image](https://user-images.githubusercontent.com/48925593/134448841-69c26016-b744-43a7-bc5c-562b10995da0.png)
 
+**STEP 17. MONITOR THE INSTALLATION PROGRESS**
+![image](https://user-images.githubusercontent.com/48925593/134449913-6125dac7-b55b-412a-b03b-3be148ab1126.png)
+
+
