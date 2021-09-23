@@ -270,7 +270,7 @@ c. To proceed, click on _Next_.
 
 **STEP 16. REVIEW AND CREATE.**
 
-  a. Review the cconfiguration, and select _Install Cluster_.
+  a. Review the configuration, and select _Install Cluster_.
 ![image](https://user-images.githubusercontent.com/48925593/134448841-69c26016-b744-43a7-bc5c-562b10995da0.png)
 
 **STEP 17. MONITOR THE INSTALLATION PROGRESS**
