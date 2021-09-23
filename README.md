@@ -229,7 +229,7 @@ curl -X POST "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CL
 **STEP 10. DOWNLOAD THE DISCOVERY ISO FILE:**
    ```bash
    curl -L "http://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/downloads/image" \
-   -o ~/discovery-image-$CLUSTER_NAME.iso  -H "Authorization: Bearer $TOKEN"
+   -o ./discovery-image-$CLUSTER_NAME.iso  -H "Authorization: Bearer $TOKEN"
   ```
 
 **STEP 11. RETRIEVE THE AWS S3 DOWNLOAD URL (OPTIONAL):**
