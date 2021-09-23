@@ -111,8 +111,8 @@ https://console.redhat.com/openshift/install/pull-secret
 **STEP 7. VERIFY/RETRIEVE THE CLUSTER CONFIG with API:**
 
   ```bash
-      curl -s -X GET --header "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" \
-      "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/install-config"|jq -r
+  curl -s -X GET --header "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" \
+  "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/install-config"|jq -r
    ```
       
 SAMPLE OUTPUT:
