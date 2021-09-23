@@ -48,7 +48,7 @@ https://console.redhat.com/openshift/install/pull-secret
    export CLUSTER_NAME="waiops"                                                   # OpenShift cluster name    
    export CLUSTER_DOMAIN="redhat.local"                                           # Domain name where the cluster will be deployed 
    export CLUSTER_NET_TYPE="OpenShiftSDN"                                         # Set the Network type to deploy with OpenShift
-   export PULL_SECRET=$(cat ~/pull-secret.txt | jq -R .)                          # Loading the pull-secret into variable
+   export PULL_SECRET=$(cat ./pull-secret.txt | jq -R .)                          # Loading the pull-secret into variable
    export CLUSTER_SSHKEY=$(cat ~/.ssh/id_rsa.pub)                                 # Loading the public key into variable
    ```
    
