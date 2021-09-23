@@ -55,7 +55,7 @@ https://console.redhat.com/openshift/install/pull-secret
 **STEP 4. GENERATE THE DEPLOYMENT.JSON FILE:**
 
    ```bash
-   cat << EOF > ~/deployment.json
+   cat << EOF > ./deployment.json
    {
    "kind": "Cluster",
    "name": "$CLUSTER_NAME",
@@ -151,7 +151,7 @@ SAMPLE OUTPUT:
     NOTE: vSphere virtual ethernet adapter device name shows up as "ens192".
     
   ```bash
-cat << EOF > ~/master-0.yaml 
+cat << EOF > ./master-0.yaml 
 dns-resolver:
   config:
     server:
@@ -184,9 +184,9 @@ EOF
 DATA=$(mktemp)
 
 jq -n --arg SSH_KEY "$CLUSTER_SSHKEY" \
---arg NMSTATE_YAML1 "$(cat ~/master-0.yaml)" --arg NMSTATE_YAML2 "$(cat ~/master-1.yaml)" \
---arg NMSTATE_YAML3 "$(cat ~/master-2.yaml)" --arg NMSTATE_YAML4 "$(cat ~/worker-0.yaml)" \
---arg NMSTATE_YAML5 "$(cat ~/worker-1.yaml)" --arg NMSTATE_YAML6 "$(cat ~/worker-2.yaml)" \
+--arg NMSTATE_YAML1 "$(cat ./master-0.yaml)" --arg NMSTATE_YAML2 "$(cat ./master-1.yaml)" \
+--arg NMSTATE_YAML3 "$(cat ./master-2.yaml)" --arg NMSTATE_YAML4 "$(cat ./worker-0.yaml)" \
+--arg NMSTATE_YAML5 "$(cat ./worker-1.yaml)" --arg NMSTATE_YAML6 "$(cat ./worker-2.yaml)" \
 '{
   "ssh_public_key": $SSH_KEY,
   "image_type": "full-iso",
@@ -226,7 +226,7 @@ curl -X POST "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CL
 **STEP 10. DOWNLOAD THE DISCOVERY ISO FILE:**
    ```bash
    curl -L "http://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/downloads/image" \
-   -o ~/discovery-image-$CLUSTER_NAME-master0.iso  -H "Authorization: Bearer $TOKEN"
+   -o ~/discovery-image-$CLUSTER_NAME.iso  -H "Authorization: Bearer $TOKEN"
   ```
 
 **STEP 11. RETRIEVE THE AWS S3 DOWNLOAD URL (OPTIONAL):**
