@@ -149,11 +149,19 @@ SAMPLE OUTPUT:
       
 ## **STEP 8. CREATE THE NMSTATE YAML FILES:**
 
-    Create a yaml file for each node in the cluster (master-0, master-1, master-2, worker-0, worker-1, worker-2).
-    The master-0 file is shown below. 
-    Replicate this for the other nodes, changing the IP addresses to match your environment.
-    
-    NOTE: vSphere virtual ethernet adapter device name shows up as "ens192".
+Create a yaml file for each node in the cluster:
+- master-0.yaml
+- master-1.yaml
+- master-2.yaml
+- worker-0.yaml
+- worker-1.yaml
+- worker-2.yaml
+- worker-3.yaml
+
+The master-0.yaml file is shown below. 
+Replicate this for the other nodes, changing the IP addresses to match your environment.
+
+NOTE: vSphere virtual ethernet adapter device name shows up as "ens192".
     
   ```bash
 cat << EOF > ./master-0.yaml 
@@ -192,6 +200,7 @@ jq -n --arg SSH_KEY "$CLUSTER_SSHKEY" \
 --arg NMSTATE_YAML1 "$(cat ./master-0.yaml)" --arg NMSTATE_YAML2 "$(cat ./master-1.yaml)" \
 --arg NMSTATE_YAML3 "$(cat ./master-2.yaml)" --arg NMSTATE_YAML4 "$(cat ./worker-0.yaml)" \
 --arg NMSTATE_YAML5 "$(cat ./worker-1.yaml)" --arg NMSTATE_YAML6 "$(cat ./worker-2.yaml)" \
+--arg NMSTATE_YAML7 "$(cat ./worker-3.yaml)"
 '{
   "ssh_public_key": $SSH_KEY,
   "image_type": "full-iso",
@@ -219,7 +228,11 @@ jq -n --arg SSH_KEY "$CLUSTER_SSHKEY" \
     {
       "network_yaml": $NMSTATE_YAML6,
       "mac_interface_map": [{"mac_address": "00:50:56:b9:be:33", "logical_nic_name": "ens192"}]
-     }
+     },
+    {
+      "network_yaml": $NMSTATE_YAML7,
+      "mac_interface_map": [{"mac_address": "00:50:56:b9:be:12", "logical_nic_name": "ens192"}]
+     }     
   ]
 }' > $DATA
 
