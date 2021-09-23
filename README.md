@@ -276,4 +276,6 @@ c. To proceed, click on _Next_.
 **STEP 17. MONITOR THE INSTALLATION PROGRESS**
 ![image](https://user-images.githubusercontent.com/48925593/134449913-6125dac7-b55b-412a-b03b-3be148ab1126.png)
 
+**STEP 18. INSTALLATION COMPLETE.**
+
 
