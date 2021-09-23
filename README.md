@@ -158,8 +158,8 @@ Create a yaml file for each node in the cluster:
 - worker-2.yaml
 - worker-3.yaml
 
-The master-0.yaml file is shown below. 
-Replicate this for the other nodes, changing the IP addresses to match your environment.
+The `master-0.yaml` file is shown below. 
+Replicate this for the other nodes, changing the IP addresses for your DNS server, the gateway, and for that node, to match your environment.
 
 NOTE: vSphere virtual ethernet adapter device name shows up as "ens192".
     
@@ -247,7 +247,7 @@ curl -X POST "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CL
    -o ./discovery-image-$CLUSTER_NAME.iso  -H "Authorization: Bearer $TOKEN"
   ```
 
-## **STEP 11. RETRIEVE THE AWS S3 DOWNLOAD URL (OPTIONAL):**
+## **STEP 11. (OPTIONAL) RETRIEVE THE AWS S3 DOWNLOAD URL:**
 
   This can be used to download directly from AWS S3, which can be helpful when transfering from a location with limited upload speed.
    ```bash
@@ -277,9 +277,9 @@ a. You will see a list of clusters, click on the name of the cluster.
 
 ## **STEP 15. CONFIGURE NETWORKING:**
 
-a. From the _Networking_ menu, select the discovered network subnet, and enter the static IP addresses for the API VIP and Ingress VIP.
+a. From the _Networking_ menu, select the discovered `network subnet`, and enter the static IP addresses for the `API VIP` and `Ingress VIP`.
 
-b. To edit the Cluster network CIDR, Host prefix, and Service network CIDR, first select _use advanced networking_.
+b. (OPTIONAL) To edit the Cluster network CIDR, Host prefix, and Service network CIDR, first select _use advanced networking_.
 
 c. To proceed, click on _Next_.
 ![image](https://user-images.githubusercontent.com/48925593/134448546-c1e05bae-cc25-4aca-abc3-c495a0b33b63.png)
