@@ -250,6 +250,8 @@ curl -X POST "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CL
 ## **STEP 11. (OPTIONAL) RETRIEVE THE AWS S3 DOWNLOAD URL:**
 
   This can be used to download directly from AWS S3, which can be helpful when transfering from a location with limited upload speed.
+  
+**a. Run the following command to display the URL to download the Disccovery ISO image from AWS S3:**
    ```bash
    curl -s -X GET "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID" \
    -H "Authorization: Bearer $TOKEN"|jq .image_info
@@ -260,6 +262,9 @@ SAMPLE OUTPUT:
      "download_url": "https://s3.us-east-1.amazonaws.com/assisted-installer/discovery-image-....", 
      "expires_at": "2021-08-19T07:11:46.229Z"
    ```
+   
+**b. Copy the download url to your browser to download the Discovery ISO image from AWS S3.**
+   
 ## **STEP 12. BOOT EACH OF YOUR VM/BAREMETAL NODES FROM THE DISCOVERY ISO IMAGE.**
 
 ## **STEP 13. OPEN THE ASSISTED INSTALLER WEB UI:**
