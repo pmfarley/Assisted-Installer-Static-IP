@@ -277,7 +277,8 @@ c. To proceed, click on _Next_.
 ![image](https://user-images.githubusercontent.com/48925593/134449913-6125dac7-b55b-412a-b03b-3be148ab1126.png)
 
 **STEP 18. INSTALLATION COMPLETE.**
-![image](https://user-images.githubusercontent.com/48925593/134453768-12dae3f8-79aa-4fe0-b484-fae51d0df2f9.png)
 
+![image](https://user-images.githubusercontent.com/48925593/134454160-8d191627-4c61-44db-8109-7ff44ae6ff46.png)
+![image](https://user-images.githubusercontent.com/48925593/134454205-e1a78b80-bde5-4fe4-99e7-8ef2c42f13ae.png)
 
 
