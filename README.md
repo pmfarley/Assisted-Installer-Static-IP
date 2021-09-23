@@ -156,7 +156,6 @@ Create a yaml file for each node in the cluster:
 - worker-0.yaml
 - worker-1.yaml
 - worker-2.yaml
-- worker-3.yaml
 
 The `master-0.yaml` file is shown below. 
 Replicate this for the other nodes, changing the IP addresses for your DNS server, the gateway, and for that node, to match your environment.
@@ -200,39 +199,34 @@ jq -n --arg SSH_KEY "$CLUSTER_SSHKEY" \
 --arg NMSTATE_YAML1 "$(cat ./master-0.yaml)" --arg NMSTATE_YAML2 "$(cat ./master-1.yaml)" \
 --arg NMSTATE_YAML3 "$(cat ./master-2.yaml)" --arg NMSTATE_YAML4 "$(cat ./worker-0.yaml)" \
 --arg NMSTATE_YAML5 "$(cat ./worker-1.yaml)" --arg NMSTATE_YAML6 "$(cat ./worker-2.yaml)" \
---arg NMSTATE_YAML7 "$(cat ./worker-3.yaml)"
 '{
   "ssh_public_key": $SSH_KEY,
   "image_type": "full-iso",
   "static_network_config": [
     {
       "network_yaml": $NMSTATE_YAML1,
-      "mac_interface_map": [{"mac_address": "00:50:56:b9:02:7b", "logical_nic_name": "ens192"}]
+      "mac_interface_map": [{"mac_address": "00:50:56:bd:96:71", "logical_nic_name": "ens192"}]
     },
     {
       "network_yaml": $NMSTATE_YAML2,
-      "mac_interface_map": [{"mac_address": "00:50:56:b9:ff:58", "logical_nic_name": "ens192"}]
+      "mac_interface_map": [{"mac_address": "00:50:56:bd:a5:d5", "logical_nic_name": "ens192"}]
     },
     {
       "network_yaml": $NMSTATE_YAML3,
-      "mac_interface_map": [{"mac_address": "00:50:56:b9:72:7d", "logical_nic_name": "ens192"}]
+      "mac_interface_map": [{"mac_address": "00:50:56:bd:6a:7b", "logical_nic_name": "ens192"}]
      },
     {
       "network_yaml": $NMSTATE_YAML4,
-      "mac_interface_map": [{"mac_address": "00:50:56:b9:d8:09", "logical_nic_name": "ens192"}]
+      "mac_interface_map": [{"mac_address": "00:50:56:bd:34:a4", "logical_nic_name": "ens192"}]
     },
     {
       "network_yaml": $NMSTATE_YAML5,
-      "mac_interface_map": [{"mac_address": "00:50:56:b9:1e:92", "logical_nic_name": "ens192"}]
+      "mac_interface_map": [{"mac_address": "00:50:56:bd:ce:13", "logical_nic_name": "ens192"}]
     },
     {
       "network_yaml": $NMSTATE_YAML6,
-      "mac_interface_map": [{"mac_address": "00:50:56:b9:be:33", "logical_nic_name": "ens192"}]
-     },
-    {
-      "network_yaml": $NMSTATE_YAML7,
-      "mac_interface_map": [{"mac_address": "00:50:56:b9:be:12", "logical_nic_name": "ens192"}]
-     }     
+      "mac_interface_map": [{"mac_address": "00:50:56:bd:6d:3e", "logical_nic_name": "ens192"}]
+     }    
   ]
 }' > $DATA
 
