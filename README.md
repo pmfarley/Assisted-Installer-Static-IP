@@ -249,14 +249,26 @@ SAMPLE OUTPUT:
   https://console.redhat.com/openshift/assisted-installer/clusters/
 
 a. You will see a list of clusters, click on the name of the cluster. 
-![image](https://user-images.githubusercontent.com/48925593/134430565-5640e3ca-7111-49b2-90f1-8813f65c5e5b.png)
+![image](https://user-images.githubusercontent.com/48925593/134447572-e3ec54fc-bb8a-4fb0-9d21-a7d1efae9c1f.png)
 
 
-**STEP 14. In Host discovery Tab, once all of your nodes appear in the list, click on Next.**
 
-**STEP 15. In the Networking tab, enter the settings for the Cluster network CIDR, Host prefix, and Service network CIDR. **
+**STEP 14. In Host discovery Tab, once all of your nodes appear in the list, click on _Next_.**
+![image](https://user-images.githubusercontent.com/48925593/134447800-e2281bc9-c34a-4690-a87f-0cf5419a4072.png)
 
-From this tab, also enter the static IP addresses for the API VIP and the Ingress VIP. 
 
-**STEP 16. Proceed to click on Next, and then on Install the cluster.**
+**STEP 15. CONFIGURE NETWORKING: **
+
+a. In the Networking tab, select the discovered network subnet, and enter the static IP addresses for the API VIP and Ingress VIP.
+
+b. To edit the Cluster network CIDR, Host prefix, and Service network CIDR, first select _use advanced networking_.
+
+c. To proceed, click on _Next_.
+![image](https://user-images.githubusercontent.com/48925593/134448546-c1e05bae-cc25-4aca-abc3-c495a0b33b63.png)
+
+
+**STEP 16. REVIEW AND CREATE.**
+
+  a. Review the cconfiguration, and select _Install Cluster_.
+![image](https://user-images.githubusercontent.com/48925593/134448841-69c26016-b744-43a7-bc5c-562b10995da0.png)
 
