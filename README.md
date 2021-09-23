@@ -243,7 +243,7 @@ SAMPLE OUTPUT:
      "download_url": "https://s3.us-east-1.amazonaws.com/assisted-installer/discovery-image-....", 
      "expires_at": "2021-08-19T07:11:46.229Z"
    ```
-**STEP 12. BOOT EACH OF YOUR VM/BAREMETAL WITH THE DISCOVERY ISO IMAGE.**
+**STEP 12. BOOT EACH OF YOUR VM/BAREMETAL NODES FROM THE DISCOVERY ISO IMAGE.**
 
 **STEP 13. OPEN THE ASSISTED INSTALLER WEB UI:**
   https://console.redhat.com/openshift/assisted-installer/clusters/
