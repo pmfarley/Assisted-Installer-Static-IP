@@ -252,12 +252,13 @@ a. You will see a list of clusters, click on the name of the cluster.
 ![image](https://user-images.githubusercontent.com/48925593/134447572-e3ec54fc-bb8a-4fb0-9d21-a7d1efae9c1f.png)
 
 
+**STEP 14. HOST DISCOVERY:**
 
-**STEP 14. In Host discovery Tab, once all of your nodes appear in the list, click on _Next_.**
+  a. In Host discovery Tab, once all of your nodes appear in the list, click on _Next_.
 ![image](https://user-images.githubusercontent.com/48925593/134447800-e2281bc9-c34a-4690-a87f-0cf5419a4072.png)
 
 
-**STEP 15. CONFIGURE NETWORKING: **
+**STEP 15. CONFIGURE NETWORKING:**
 
 a. In the Networking tab, select the discovered network subnet, and enter the static IP addresses for the API VIP and Ingress VIP.
 
