@@ -164,24 +164,27 @@ NOTE: vSphere virtual ethernet adapter device name shows up as "ens192".
     
   ```bash
 cat << EOF > ./master-0.yaml 
+interfaces:
+  - name: ens192
+    type: ethernet
+    state: up
+    ipv4:
+      address:
+      - ip: 10.135.49.179
+        prefix-length: 24
+      dhcp: false
+      enabled: true
 dns-resolver:
   config:
     server:
-    - 192.168.1.210
-interfaces:
-- ipv4:
-    address:
-    - ip: 192.168.2.100
-      prefix-length: 24
-    dhcp: false
-    enabled: true
-  name: ens192
-  state: up
-  type: ethernet
+    - 10.253.44.32
 routes:
   config:
+  - destination: 10.135.49.0/24
+    next-hop-address: 10.135.49.1
+    next-hop-interface: ens192
   - destination: 0.0.0.0/0
-    next-hop-address: 192.168.2.1
+    next-hop-address: 10.135.49.1
     next-hop-interface: ens192
     table-id: 254
 EOF
