@@ -149,6 +149,34 @@ SAMPLE OUTPUT:
       
 ## **STEP 8. OPTIONAL - ENABLE LOCAL LOGIN (FOR NETWORK TROUBLESHOOTING):**
 
+  Use this step to enable a password for the "core" user, to be able to login from the local console and perform network troubleshooting.
+  
+**a. Retrieve current ignition configuration, and set variable.**
+   ```bash  
+   ORIGINAL_IGNITION=$(curl -s -X GET "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/downloads/files?file_name=discovery.ign" \
+   -H "Authorization: Bearer $TOKEN" -H "accept: application/octet-stream")
+   ```
+   
+
+**b. Generate a hash for the desired password, and set variable.**
+
+Modfy this for your environment.
+  Replace YOUR_PASSWORD_HERE with your desired password. 
+   ```bash  
+   PASS_HASH=`python2 -c 'import crypt; print(crypt.crypt("YOUR_PASSWORD_HERE", crypt.mksalt(crypt.METHOD_SHA512)))'`
+   ```
+
+**c. Generate new ignition configuration, and set variable.**
+   ```bash  
+   NEW_IGNITION=$(<<< "$ORIGINAL_IGNITION" jq --arg passhash $PASS_HASH '.passwd.users[0].passwordHash = $passhash')
+   ```
+   
+**d. Patch Cluster configuration with new ignition.** 
+   ```bash 
+   curl --fail -s "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/discovery-ignition" \
+   -H "Authorization: Bearer $TOKEN" --request PATCH --header "Content-Type: application/json" \
+   --data @<(echo '{"config": "replaceme"}' | jq --rawfile ignition <(echo $NEW_IGNITION) '.config = $ignition')
+   ```
 
 ## **STEP 9. CREATE THE NMSTATE YAML FILES:**
 
