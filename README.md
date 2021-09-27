@@ -147,7 +147,10 @@ SAMPLE OUTPUT:
       sshKey: 'Your-SSH_KEY'
   ```
       
-## **STEP 8. CREATE THE NMSTATE YAML FILES:**
+## **STEP 8. OPTIONAL - ENABLE LOCAL LOGIN (FOR NETWORK TROUBLESHOOTING):**
+
+
+## **STEP 9. CREATE THE NMSTATE YAML FILES:**
 
 Create a yaml file for each node in the cluster:
 - master-0.yaml
@@ -177,7 +180,7 @@ interfaces:
 dns-resolver:
   config:
     server:
-    - 10.253.44.32
+    - 10.66.3.25
 routes:
   config:
   - destination: 10.135.49.0/24
@@ -190,7 +193,7 @@ routes:
 EOF
    ```
    
-## **STEP 9. GENERATE THE DISCOVERY ISO FILE USING THE NMSTATE FILES:**
+## **STEP 10. GENERATE THE DISCOVERY ISO FILE USING THE NMSTATE FILES:**
 
   Gather the MAC addresses for all of your VMs/Baremetal nodes. 
   Edit the MAC addresses below for each of the nodes to match your environment.
@@ -238,13 +241,13 @@ curl -X POST "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CL
   -H "Content-Type: application/json"  -H "Authorization: Bearer $TOKEN" -d @$DATA
 ```
 
-## **STEP 10. DOWNLOAD THE DISCOVERY ISO FILE:**
+## **STEP 11. DOWNLOAD THE DISCOVERY ISO FILE:**
    ```bash
    curl -L "http://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/downloads/image" \
    -o ./discovery-image-$CLUSTER_NAME.iso  -H "Authorization: Bearer $TOKEN"
   ```
 
-## **STEP 11. (OPTIONAL) RETRIEVE THE AWS S3 DOWNLOAD URL:**
+## **STEP 12. (OPTIONAL) RETRIEVE THE AWS S3 DOWNLOAD URL:**
 
   This can be used to download directly from AWS S3, which can be helpful when transfering from a location with limited upload speed.
   
@@ -262,22 +265,22 @@ SAMPLE OUTPUT:
    
 **b. Copy the download url to your browser to download the Discovery ISO image from AWS S3.**
    
-## **STEP 12. BOOT EACH OF YOUR VM/BAREMETAL NODES FROM THE DISCOVERY ISO IMAGE.**
+## **STEP 13. BOOT EACH OF YOUR VM/BAREMETAL NODES FROM THE DISCOVERY ISO IMAGE.**
 
-## **STEP 13. OPEN THE ASSISTED INSTALLER WEB UI:**
+## **STEP 14. OPEN THE ASSISTED INSTALLER WEB UI:**
   https://console.redhat.com/openshift/assisted-installer/clusters/
 
 a. You will see a list of clusters, click on the name of the cluster. 
 ![image](https://user-images.githubusercontent.com/48925593/134447572-e3ec54fc-bb8a-4fb0-9d21-a7d1efae9c1f.png)
 
 
-## **STEP 14. HOST DISCOVERY:**
+## **STEP 15. HOST DISCOVERY:**
 
   a. From the _Host discovery_ menu, once all of your nodes appear in the list, click on _Next_.
 ![image](https://user-images.githubusercontent.com/48925593/134447800-e2281bc9-c34a-4690-a87f-0cf5419a4072.png)
 
 
-## **STEP 15. CONFIGURE NETWORKING:**
+## **STEP 16. CONFIGURE NETWORKING:**
 
 a. From the _Networking_ menu, select the discovered `network subnet`, and enter the static IP addresses for the `API VIP` and `Ingress VIP`.
 
@@ -287,15 +290,15 @@ c. To proceed, click on _Next_.
 ![image](https://user-images.githubusercontent.com/48925593/134448546-c1e05bae-cc25-4aca-abc3-c495a0b33b63.png)
 
 
-## **STEP 16. REVIEW AND CREATE.**
+## **STEP 17. REVIEW AND CREATE.**
 
   a. Review the configuration, and select _Install Cluster_.
 ![image](https://user-images.githubusercontent.com/48925593/134448841-69c26016-b744-43a7-bc5c-562b10995da0.png)
 
-## **STEP 17. MONITOR THE INSTALLATION PROGRESS**
+## **STEP 18. MONITOR THE INSTALLATION PROGRESS**
 ![image](https://user-images.githubusercontent.com/48925593/134449913-6125dac7-b55b-412a-b03b-3be148ab1126.png)
 
-## **STEP 18. INSTALLATION COMPLETE.**
+## **STEP 19. INSTALLATION COMPLETE.**
 
 ![image](https://user-images.githubusercontent.com/48925593/134454160-8d191627-4c61-44db-8109-7ff44ae6ff46.png)
 ![image](https://user-images.githubusercontent.com/48925593/134454205-e1a78b80-bde5-4fe4-99e7-8ef2c42f13ae.png)
