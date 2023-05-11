@@ -3,14 +3,14 @@ Using the OpenShift Assisted Installer with API to create a Static IP based ISO.
 
   ASSISTED INSTALLER WEB UI: https://console.redhat.com/openshift/assisted-installer/clusters/
 
-
+<br></br>
 ## **STEP 1. DOWNLOAD THE PULL SECRET FROM THE URL:**
 https://console.redhat.com/openshift/install/pull-secret
 
 **a. Click on Download pull secret, and save as filename pull-secret.txt in your current folder.**
 ![image](https://user-images.githubusercontent.com/48925593/134422760-dc8b8010-56d4-4061-89c1-6e78a73a52db.png)
 
-
+<br></br>
 ## **STEP 2. LOAD TOKEN FROM THE OPENSHIFT CLUSTER MANAGER SITE:**
   https://console.redhat.com/openshift/token
 
@@ -38,7 +38,7 @@ https://console.redhat.com/openshift/install/pull-secret
    jq -r .access_token)
    ```
 
-
+<br></br>
 ## **STEP 3. ASSIGN THE OTHER CLUSTER PROPERTIES:**
 
 **a. Assign the following parameters as variables. Modfy these for your environment.**
@@ -53,7 +53,8 @@ https://console.redhat.com/openshift/install/pull-secret
    export PULL_SECRET=$(cat ./pull-secret.txt | jq -R .)                          # Loading the pull-secret into variable
    export CLUSTER_SSHKEY=$(cat ~/.ssh/id_rsa.pub)                                 # Loading the public key into variable
    ```
-   
+
+<br></br>   
 ## **STEP 4. GENERATE THE DEPLOYMENT.JSON FILE:**
 
    ```bash
@@ -73,7 +74,7 @@ https://console.redhat.com/openshift/install/pull-secret
    EOF
    ```
 
-
+<br></br>
 ## **STEP 5. REFRESH THE OFFLINE TOKEN:**
 (This may need to be performed periodically)
 
@@ -88,6 +89,7 @@ https://console.redhat.com/openshift/install/pull-secret
       jq -r .access_token)
    ```
 
+<br></br>
 ## **STEP 6. CREATE THE CLUSTER USING THE DEPLOYMENT.JSON FILE:**
 
 **a. Create cluster.**
@@ -110,6 +112,7 @@ https://console.redhat.com/openshift/install/pull-secret
   4bb998f1-b99a-4319-b5e1-b4a2fb4db9a3
    ```
 
+<br></br>
 ## **STEP 7. VERIFY/RETRIEVE THE CLUSTER CONFIG:**
 
   ```bash
@@ -146,7 +149,8 @@ SAMPLE OUTPUT:
       pullSecret: 'Your-Pull-Secret'
       sshKey: 'Your-SSH_KEY'
   ```
-      
+
+<br></br>
 ## **STEP 8. OPTIONAL - ENABLE LOCAL LOGIN (FOR NETWORK TROUBLESHOOTING):**
 
   Use this step to enable a password for the "core" user, to be able to login from the local console and perform network troubleshooting.
@@ -178,6 +182,7 @@ Modfy this for your environment.
    --data @<(echo '{"config": "replaceme"}' | jq --rawfile ignition <(echo $NEW_IGNITION) '.config = $ignition')
    ```
 
+<br></br>
 ## **STEP 9. CREATE THE NMSTATE YAML FILES:**
 
 Create a yaml file for each node in the cluster:
@@ -220,7 +225,8 @@ routes:
     table-id: 254
 EOF
    ```
-   
+
+<br></br>
 ## **STEP 10. GENERATE THE DISCOVERY ISO FILE USING THE NMSTATE FILES:**
 
   Gather the MAC addresses for all of your VMs/Baremetal nodes. 
@@ -269,12 +275,14 @@ curl -X POST "https://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CL
   -H "Content-Type: application/json"  -H "Authorization: Bearer $TOKEN" -d @$DATA
 ```
 
+<br></br>
 ## **STEP 11. DOWNLOAD THE DISCOVERY ISO FILE:**
    ```bash
    curl -L "http://$ASSISTED_SERVICE_API/api/assisted-install/v1/clusters/$CLUSTER_ID/downloads/image" \
    -o ./discovery-image-$CLUSTER_NAME.iso  -H "Authorization: Bearer $TOKEN"
   ```
 
+<br></br>
 ## **STEP 12. (OPTIONAL) RETRIEVE THE AWS S3 DOWNLOAD URL:**
 
   This can be used to download directly from AWS S3, which can be helpful when transfering from a location with limited upload speed.
@@ -292,22 +300,25 @@ SAMPLE OUTPUT:
    ```
    
 **b. Copy the download url to your browser to download the Discovery ISO image from AWS S3.**
-   
+
+<br></br>
 ## **STEP 13. BOOT EACH OF YOUR VM/BAREMETAL NODES FROM THE DISCOVERY ISO IMAGE.**
 
+<br></br>
 ## **STEP 14. OPEN THE ASSISTED INSTALLER WEB UI:**
   https://console.redhat.com/openshift/assisted-installer/clusters/
 
 a. You will see a list of clusters, click on the name of the cluster. 
 ![image](https://user-images.githubusercontent.com/48925593/134447572-e3ec54fc-bb8a-4fb0-9d21-a7d1efae9c1f.png)
 
-
+<br></br>
 ## **STEP 15. HOST DISCOVERY:**
 
   a. From the _Host discovery_ menu, once all of your nodes appear in the list, click on _Next_.
 ![image](https://user-images.githubusercontent.com/48925593/134447800-e2281bc9-c34a-4690-a87f-0cf5419a4072.png)
 
 
+<br></br>
 ## **STEP 16. CONFIGURE NETWORKING:**
 
 a. From the _Networking_ menu, select the discovered `network subnet`, and enter the static IP addresses for the `API VIP` and `Ingress VIP`.
@@ -318,14 +329,17 @@ c. To proceed, click on _Next_.
 ![image](https://user-images.githubusercontent.com/48925593/134448546-c1e05bae-cc25-4aca-abc3-c495a0b33b63.png)
 
 
+<br></br>
 ## **STEP 17. REVIEW AND CREATE.**
 
   a. Review the configuration, and select _Install Cluster_.
 ![image](https://user-images.githubusercontent.com/48925593/134448841-69c26016-b744-43a7-bc5c-562b10995da0.png)
 
+<br></br>
 ## **STEP 18. MONITOR THE INSTALLATION PROGRESS**
 ![image](https://user-images.githubusercontent.com/48925593/134449913-6125dac7-b55b-412a-b03b-3be148ab1126.png)
 
+<br></br>
 ## **STEP 19. INSTALLATION COMPLETE.**
 
 ![image](https://user-images.githubusercontent.com/48925593/134454160-8d191627-4c61-44db-8109-7ff44ae6ff46.png)
